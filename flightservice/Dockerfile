@@ -1,9 +1,17 @@
-FROM java:8-jre
+FROM alpine/git as clone (1)
+WORKDIR /usr/src
+RUN git clone https://github.com/Bibek-Sutradhar/flight-service.git
+
+
+FROM maven:3.5-jdk-8-alpine as build (2)
+WORKDIR /usr/src
+COPY --from=clone /usr/src/flight-service /usr/src (3)
+RUN mvn install
+
+
+FROM openjdk:8-jre-alpine
 WORKDIR usr/src
-###ENV MYSQL_DATABASE=qnadb
-###ENV MYSQL_USER=approot
-###ENV MYSQL_PASSWORD=root123
-###ENV MYSQL_CI_URL=jdbc:mysql://localhost:3306/qnadb
 EXPOSE 8888
 ADD ./target/flightservice-1.0.jar /usr/src/flightservice-1.0.jar
-ENTRYPOINT ["java", "-jar", "flightservice-1.0.jar"]
+ENTRYPOINT ["sh", "-c"]
+CMD ["java", "-jar", "flightservice-1.0.jar"]
