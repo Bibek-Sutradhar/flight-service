@@ -13,5 +13,4 @@ FROM openjdk:8-jre-alpine
 WORKDIR /app
 EXPOSE 8888
 COPY --from=build /app/target/flightservice-1.0.jar /app
-ENTRYPOINT ["sh", "-c"]
 CMD ["java", "-jar", "flightservice-1.0.jar"]
