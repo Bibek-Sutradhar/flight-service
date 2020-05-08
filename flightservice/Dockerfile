@@ -5,7 +5,7 @@ RUN git clone https://github.com/Bibek-Sutradhar/flight-service.git
 
 FROM maven:3.5-jdk-8-alpine as build
 WORKDIR /usr/src
-COPY --from=clone /usr/src/flight-service /usr/src
+COPY --from=clone /usr/src/flight-service/flightservice /usr/src
 RUN mvn install
 
 
