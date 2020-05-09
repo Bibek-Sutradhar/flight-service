@@ -1,3 +1,4 @@
+
 package com.ibm.flightservice.dto;
 
 import java.util.Date;
@@ -12,6 +13,24 @@ public class DataDTO {
 	private String id;
 	
 	private String source;
+	
+	private boolean instantTicketingRequired;
+	
+    private boolean nonHomogeneous;
+    private boolean oneWay;
+    private Date lastTicketingDate;
+    
+    private Integer numberOfBookableSeats;
+    
+    private List<ItinerariesDTO> itineraries;
+    
+    private PriceDTO price;
+    
+    private PricingOptions pricingOptions;
+    
+    private List<String> validatingAirlineCodes;
+    
+    private List<TravelerPricingsDTO> travelerPricings;
 	
 	public String getType() {
 		return type;
@@ -119,19 +138,7 @@ public class DataDTO {
 		this.travelerPricings = travelerPricings;
 	}
 
-	private boolean instantTicketingRequired;
 	
-    private boolean nonHomogeneous;
-    private boolean oneWay;
-    private Date lastTicketingDate;
-    
-    private Integer numberOfBookableSeats;
-    
-    private List<ItinerariesDTO> itineraries;
-    
-    private PriceDTO price;
-    
-    private PricingOptions pricingOptions;
     
     public static class PricingOptions{
     	
@@ -155,10 +162,4 @@ public class DataDTO {
 			this.includedCheckedBagsOnly = includedCheckedBagsOnly;
 		}
     }
-    
-    private List<String> validatingAirlineCodes;
-    
-    private List<TravelerPricingsDTO> travelerPricings;
-
-	
 }

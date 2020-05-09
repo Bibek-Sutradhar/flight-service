@@ -18,12 +18,11 @@ import com.amadeus.resources.FlightOfferSearch.TravelerPricing;
 public class ResponseMapper {
 
 	public FlightSearchResponseDTO converter(List<FlightOfferSearch> flightOffers) {
-
+		
 		FlightSearchResponseDTO dto = new FlightSearchResponseDTO();
-
 		List<DataDTO> listDataDTO = new ArrayList<DataDTO>();
-
-		for (FlightOfferSearch flightOffer : flightOffers) {
+		
+		 for (FlightOfferSearch flightOffer : flightOffers) {
 			DataDTO dataDTO = new DataDTO();
 			dataDTO.setId(flightOffer.getId());
 			dataDTO.setType(flightOffer.getType());

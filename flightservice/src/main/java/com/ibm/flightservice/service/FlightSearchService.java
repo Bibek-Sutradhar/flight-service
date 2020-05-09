@@ -16,6 +16,7 @@ import com.ibm.flightservice.config.SecurityConfiguration;
 import com.ibm.flightservice.dto.FlightRequestDTO;
 import com.ibm.flightservice.dto.FlightSearchResponseDTO;
 import com.ibm.flightservice.dto.ResponseMapper;
+import com.ibm.flightservice.repository.FlightServiceRepository;
 
 @Service
 public class FlightSearchService {
@@ -25,24 +26,27 @@ public class FlightSearchService {
 	@Autowired
 	private SecurityConfiguration configuaration;
 	
-	public FlightSearchResponseDTO flightSearch(FlightRequestDTO flightRequestDTO) {	
+	@Autowired
+	private FlightServiceRepository flightServiceRepository;
+	
+public FlightSearchResponseDTO flightSearch(FlightRequestDTO flightRequestDTO) {	
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");	
 		
 		Date   defatureDate =null;
 		Date   returnDate=null;
 		
-	
+		System.out.println("origin ::"+ flightRequestDTO.getOriginLocationCode());
+		System.out.println("destination ::" + flightRequestDTO.getDestinationLocationCode());
+		System.out.println("departure date ::"+ flightRequestDTO.getDepartureDate());
+		System.out.println("return date ::" + flightRequestDTO.getReturnDate());
 		
 		
 		try {
-		defatureDate=	format.parse(flightRequestDTO.getDepartureDate());
-		
-		returnDate= format.parse(flightRequestDTO.getReturnDate());
-		
-		
-		
-		}catch(Exception exp) {
+			defatureDate=	format.parse(flightRequestDTO.getDepartureDate());
+			returnDate= format.parse(flightRequestDTO.getReturnDate());
+		}
+		catch(Exception exp) {
 			
 		}
 		
@@ -89,6 +93,12 @@ public class FlightSearchService {
 		
 		ResponseMapper responseMapper=new ResponseMapper();
 		FlightSearchResponseDTO flightResponse= responseMapper.converter(flighSearches);
+		System.out.println("Final Data is ::" + flightResponse.toString());
+		if(null != flightResponse.getData() && !flightResponse.getData().isEmpty()) {
+			flightServiceRepository.save(flightResponse);	
+		}
+		
+		
 		return flightResponse;
 	}
 		
